@@ -29,7 +29,7 @@ void setup() {
 void loop() {
   int knobValue = analogRead(KNOB);
   int knobLEDselect = map(knobValue, 0, 1023, 0, 100);  
-
+  int displayselect = map(knobLEDselect, 0, 100, 0, 4);  
 
 
   Serial.print("KNOB: ");
@@ -37,9 +37,7 @@ void loop() {
   Serial.print(" ");
   Serial.print(knobLEDselect);
   Serial.println(" ");
-  disp.display(knobLEDselect);
-
-  
+  disp.display(displayselect + 1);
 
   if (knobLEDselect<=25){
     digitalWrite(LED_YELLOW, HIGH);
