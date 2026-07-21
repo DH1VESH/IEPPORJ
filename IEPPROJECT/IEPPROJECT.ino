@@ -11,9 +11,10 @@
 #define CLK 10
 #define DIO 11
 TM1637 disp(CLK, DIO);
+int arrayLED[4] = {7,6,5,4 };
+ 
 
 void setup() {
-  int arrayLED[4] = {LED_YELLOW, LED_BLUE, LED_GREEN, LED_RED };
   Serial.begin(9600);
   pinMode(LED_RED, OUTPUT);
   pinMode(LED_GREEN, OUTPUT);
@@ -27,7 +28,7 @@ void setup() {
 
 void loop() {
   int knobValue = analogRead(KNOB);
-  int knobLEDselect = map(knobValue, 0, 1023, 1, 4);  
+  int knobLEDselect = map(knobValue, 0, 1023, 0, 100);  
 
 
 
@@ -38,7 +39,33 @@ void loop() {
   Serial.println(" ");
   disp.display(knobLEDselect);
 
-   
+  
+
+  if (knobLEDselect<=25){
+    digitalWrite(LED_YELLOW, HIGH);
+    digitalWrite(LED_RED, LOW);
+    digitalWrite(LED_BLUE, LOW);
+    digitalWrite(LED_GREEN, LOW);
+  }
+  else if (knobLEDselect>25 ;knobLEDselect<=50){
+    digitalWrite(LED_BLUE, HIGH);
+    digitalWrite(LED_YELLOW, LOW);
+    digitalWrite(LED_RED, LOW);
+    digitalWrite(LED_GREEN, LOW);
+  }
+  else if (knobLEDselect>50 ; knobLEDselect<=75){
+    digitalWrite(LED_GREEN, HIGH);
+    digitalWrite(LED_BLUE, LOW);
+    digitalWrite(LED_YELLOW, LOW);
+    digitalWrite(LED_RED, LOW);
+  }
+  else if ( knobLEDselect>75;knobLEDselect<=100){
+    digitalWrite(LED_RED, HIGH);
+    digitalWrite(LED_GREEN, LOW);
+    digitalWrite(LED_BLUE, LOW);
+    digitalWrite(LED_YELLOW, LOW);
+  }
+
   
   delay (20);
 }
