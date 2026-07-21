@@ -12,6 +12,12 @@
 #define DIO 11
 TM1637 disp(CLK, DIO);
 int arrayLED[4] = {7,6,5,4 };
+int LEDselect(int y, int b, int g, int r){
+    digitalWrite(y, HIGH);
+    digitalWrite(b, LOW);
+    digitalWrite(g, LOW);
+    digitalWrite(r, LOW);}
+
  
 
 void setup() {
@@ -40,28 +46,16 @@ void loop() {
   disp.display(displayselect + 1);
 
   if (knobLEDselect<=25){
-    digitalWrite(LED_YELLOW, HIGH);
-    digitalWrite(LED_BLUE, LOW);
-    digitalWrite(LED_GREEN, LOW);
-    digitalWrite(LED_RED, LOW);
+    LEDselect(7, 6, 5, 4);
   }
   else if (knobLEDselect>25 ;knobLEDselect<=50){
-    digitalWrite(LED_YELLOW, LOW);
-    digitalWrite(LED_BLUE, HIGH);
-    digitalWrite(LED_GREEN, LOW);
-    digitalWrite(LED_RED, LOW);
+    LEDselect(6, 5, 4, 7);
   }
   else if (knobLEDselect>50 ; knobLEDselect<=75){
-    digitalWrite(LED_YELLOW, LOW);
-    digitalWrite(LED_BLUE, LOW);
-    digitalWrite(LED_GREEN, HIGH);
-    digitalWrite(LED_RED, LOW);
+    LEDselect(5, 4, 7, 6);
   }
   else if ( knobLEDselect>75;knobLEDselect<=100){
-    digitalWrite(LED_YELLOW, LOW);
-    digitalWrite(LED_BLUE, LOW);
-    digitalWrite(LED_GREEN, LOW);
-    digitalWrite(LED_RED, HIGH);
+    LEDselect(4, 7, 6, 5);
   }
 
   
