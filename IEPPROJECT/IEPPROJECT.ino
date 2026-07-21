@@ -13,6 +13,7 @@
 TM1637 disp(CLK, DIO);
 
 void setup() {
+  int arrayLED[4] = {LED_YELLOW, LED_BLUE, LED_GREEN, LED_RED };
   Serial.begin(9600);
   pinMode(LED_RED, OUTPUT);
   pinMode(LED_GREEN, OUTPUT);
@@ -26,14 +27,18 @@ void setup() {
 
 void loop() {
   int knobValue = analogRead(KNOB);
-  int knobPercent = map(knobValue, 0, 1023, 0, 100);  
+  int knobLEDselect = map(knobValue, 0, 1023, 1, 4);  
+
+
 
   Serial.print("KNOB: ");
   Serial.print (knobValue);
-  Serial.print(" (");
-  Serial.print(knobPercent);
-  Serial.println("%)");
-  disp.display(knobPercent);
+  Serial.print(" ");
+  Serial.print(knobLEDselect);
+  Serial.println(" ");
+  disp.display(knobLEDselect);
+
+   
   
   delay (20);
 }
