@@ -43,27 +43,27 @@ void loop() {
 
   if (knobLEDselect<=25){
     digitalWrite(LED_YELLOW, HIGH);
-    digitalWrite(LED_RED, LOW);
     digitalWrite(LED_BLUE, LOW);
     digitalWrite(LED_GREEN, LOW);
+    digitalWrite(LED_RED, LOW);
   }
   else if (knobLEDselect>25 ;knobLEDselect<=50){
-    digitalWrite(LED_BLUE, HIGH);
     digitalWrite(LED_YELLOW, LOW);
-    digitalWrite(LED_RED, LOW);
+    digitalWrite(LED_BLUE, HIGH);
     digitalWrite(LED_GREEN, LOW);
+    digitalWrite(LED_RED, LOW);
   }
   else if (knobLEDselect>50 ; knobLEDselect<=75){
-    digitalWrite(LED_GREEN, HIGH);
-    digitalWrite(LED_BLUE, LOW);
     digitalWrite(LED_YELLOW, LOW);
+    digitalWrite(LED_BLUE, LOW);
+    digitalWrite(LED_GREEN, HIGH);
     digitalWrite(LED_RED, LOW);
   }
   else if ( knobLEDselect>75;knobLEDselect<=100){
-    digitalWrite(LED_RED, HIGH);
-    digitalWrite(LED_GREEN, LOW);
-    digitalWrite(LED_BLUE, LOW);
     digitalWrite(LED_YELLOW, LOW);
+    digitalWrite(LED_BLUE, LOW);
+    digitalWrite(LED_GREEN, LOW);
+    digitalWrite(LED_RED, HIGH);
   }
 
   
