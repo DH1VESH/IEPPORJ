@@ -22,9 +22,11 @@ int readbuttons();
 int choosingmedicine();
 int buttons = 0;
 
-    
+
+   
 int checkbuttons(){
   int prev,curr;
+
 
   curr = readbuttons();
   do {
@@ -35,13 +37,13 @@ int checkbuttons(){
   return curr;
 }
 
+
 int readbuttons(){
   int k1,k2;
   k1 = !digitalRead (K1PIN);
   k2 = !digitalRead (K2PIN);
   return(k1 | k2 <<1);
 }
-
 
 
 void setup() {
@@ -58,14 +60,18 @@ void setup() {
 }
 
 
+
+
 void loop() {
  
   int button = checkbuttons();
-  int knobValue = analogRead(KNOB); 
+  int knobValue = analogRead(KNOB);
   int knobLEDselect = map(knobValue, 0, 1023, 0, 100);  
   int displayselect = map(knobLEDselect, 0, 100, 0, 4);  
 
+
   if (button == 2){
+
 
   Serial.print("KNOB: ");
   Serial.print (knobValue);
@@ -73,6 +79,7 @@ void loop() {
   Serial.print(knobLEDselect);
   Serial.println(" ");
   disp.display(displayselect + 1);
+
 
   if (knobLEDselect<=25){
     LEDselect(7, 6, 5, 4);}
@@ -83,10 +90,8 @@ void loop() {
   else if ( knobLEDselect>75;knobLEDselect<=100){
     LEDselect(4, 7, 6, 5);}
 
-  }
 
-  else if {
-    
   }
 
 }
+
