@@ -47,10 +47,6 @@ int readbuttons(){
 }
 
 
-
-
-
-
 void setup() {
   Serial.begin(9600);
   pinMode(LED_RED, OUTPUT);
@@ -91,7 +87,6 @@ void loop() {
     LEDselect(5, 4, 7, 6);}
    else if ( knobLEDselect>75;knobLEDselect<=100){
     LEDselect(4, 7, 6, 5);}
-  }
 
 
 }
