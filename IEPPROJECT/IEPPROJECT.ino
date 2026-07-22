@@ -19,6 +19,29 @@ void LEDselect(int y, int b, int g, int r){
     digitalWrite(b, LOW);
     digitalWrite(g, LOW);
     digitalWrite(r, LOW);}
+int checkbuttons();
+int readbuttons();
+int buttons = 0;
+
+    
+int checkbuttons(){
+  int prev,curr;
+
+  curr = readbuttons();
+  do {
+    delay(20);
+    prev = curr;
+    curr = readbuttons();
+  } while (curr != prev);
+  return curr;
+}
+
+int readbuttons(){
+  int k1,k2;
+  k1 = !digitalRead (K1PIN);
+  k2 = !digitalRead (K2PIN);
+  return(k1 | k2 <<1);
+}
 
 //Button Toggle
 bool prevButtonState = false;
@@ -33,16 +56,23 @@ void setup() {
   pinMode(KNOB, INPUT);
   pinMode(K1PIN, INPUT_PULLUP);
   pinMode(K2PIN, INPUT_PULLUP);
+  pinMode (BUZZER, OUTPUT);
   disp.init();
 
   //Button Toggle
   bool currButtonState = digitalRead(K2PIN);
 }
 
+
 void loop() {
+
 //Button Toggle
 prevButtonState = currButtonState;
 currButtonState = digitalRead(K2PIN);
+
+
+ 
+  int button = checkbuttons();
 
   int knobValue = analogRead(KNOB); 
   int knobLEDselect = map(knobValue, 0, 1023, 0, 100); 
@@ -51,6 +81,9 @@ currButtonState = digitalRead(K2PIN);
 
   buttonstate1 = digitalRead (K1PIN);
   buttonstate2 = digitalRead (K2PIN);
+
+  if (button == 2){
+
 
   Serial.print("KNOB: ");
   Serial.print (knobValue);
@@ -70,6 +103,8 @@ if (currButtonState == LOW && prevButtonState == HIGH) {
     LEDselect(4, 7, 6, 5);}
 }
   prevButtonState = currButtonState;
+  
+  }
 
 }
 
