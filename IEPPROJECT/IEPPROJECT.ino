@@ -19,6 +19,7 @@ void LEDselect(int y, int b, int g, int r){
     digitalWrite(r, LOW);}
 int checkbuttons();
 int readbuttons();
+int choosingmedicine();
 int buttons = 0;
 
     
@@ -40,6 +41,8 @@ int readbuttons(){
   k2 = !digitalRead (K2PIN);
   return(k1 | k2 <<1);
 }
+
+
 
 void setup() {
   Serial.begin(9600);
@@ -82,8 +85,7 @@ void loop() {
 
   }
 
-  else {
-
+  else if {
     
   }
 
