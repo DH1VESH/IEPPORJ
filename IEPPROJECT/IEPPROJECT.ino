@@ -11,7 +11,7 @@
 #define CLK 10
 #define DIO 11
 TM1637 disp(CLK, DIO);
-int arrayLED[4] = {7,6,5,4 };
+int arrayLED[4] = {7,6,5,4 ;
 
 
 void setup() {
