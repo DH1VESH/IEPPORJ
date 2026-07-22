@@ -18,8 +18,6 @@ int LEDselect(int y, int b, int g, int r){
     digitalWrite(g, LOW);
     digitalWrite(r, LOW);}
 
- 
-
 void setup() {
   Serial.begin(9600);
   pinMode(LED_RED, OUTPUT);
