@@ -11,6 +11,7 @@
 #define CLK 10
 #define DIO 11
 TM1637 disp(CLK, DIO);
+int yellow, blue, green, red;
 int arrayLED[4] = {7,6,5,4 };
 void LEDselect(int y, int b, int g, int r){
     digitalWrite(y, HIGH);
@@ -25,7 +26,7 @@ int buttons = 0;
 
    
 int checkbuttons(){
-  int prev,curr;
+  int prev, curr;
 
 
   curr = readbuttons();
@@ -75,28 +76,22 @@ void loop() {
 
 
   if (button == 2){
-
-
   Serial.print("KNOB: ");
   Serial.print (knobValue);
   Serial.print(" ");
   Serial.print(knobLEDselect);
   Serial.println(" ");
   disp.display(displayselect + 1);
-
-
-  if (knobLEDselect<=25){
+  
+   if (knobLEDselect<=25){
     LEDselect(7, 6, 5, 4);}
-  else if (knobLEDselect>25 ;knobLEDselect<=50){
+   else if (knobLEDselect>25 ;knobLEDselect<=50){
     LEDselect(6, 5, 4, 7);}
-  else if (knobLEDselect>50 ; knobLEDselect<=75){
+   else if (knobLEDselect>50 ; knobLEDselect<=75){
     LEDselect(5, 4, 7, 6);}
-  else if ( knobLEDselect>75;knobLEDselect<=100){
+   else if ( knobLEDselect>75;knobLEDselect<=100){
     LEDselect(4, 7, 6, 5);}
-
-
   }
-
 
 
 }
