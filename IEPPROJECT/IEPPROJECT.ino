@@ -17,6 +17,29 @@ void LEDselect(int y, int b, int g, int r){
     digitalWrite(b, LOW);
     digitalWrite(g, LOW);
     digitalWrite(r, LOW);}
+int checkbuttons();
+int readbuttons();
+int buttons = 0;
+
+    
+int checkbuttons(){
+  int prev,curr;
+
+  curr = readbuttons();
+  do {
+    delay(20);
+    prev = curr;
+    curr = readbuttons();
+  } while (curr != prev);
+  return curr;
+}
+
+int readbuttons(){
+  int k1,k2;
+  k1 = !digitalRead (K1PIN);
+  k2 = !digitalRead (K2PIN);
+  return(k1 | k2 <<1);
+}
 
 void setup() {
   Serial.begin(9600);
@@ -27,13 +50,19 @@ void setup() {
   pinMode(KNOB, INPUT);
   pinMode(K1PIN, INPUT_PULLUP);
   pinMode(K2PIN, INPUT_PULLUP);
+  pinMode (BUZZER, OUTPUT);
   disp.init();
 }
 
+
 void loop() {
+ 
+  int button = checkbuttons();
   int knobValue = analogRead(KNOB); 
   int knobLEDselect = map(knobValue, 0, 1023, 0, 100);  
   int displayselect = map(knobLEDselect, 0, 100, 0, 4);  
+
+  if (button == 2){
 
   Serial.print("KNOB: ");
   Serial.print (knobValue);
@@ -50,5 +79,12 @@ void loop() {
     LEDselect(5, 4, 7, 6);}
   else if ( knobLEDselect>75;knobLEDselect<=100){
     LEDselect(4, 7, 6, 5);}
+
+  }
+
+  else {
+
+    
+  }
 
 }
