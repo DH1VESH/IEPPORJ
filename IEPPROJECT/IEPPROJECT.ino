@@ -12,7 +12,7 @@
 #define DIO 11
 TM1637 disp(CLK, DIO);
 int arrayLED[4] = {7,6,5,4 };
- 
+
 
 void setup() {
   Serial.begin(9600);
@@ -65,7 +65,11 @@ void loop() {
     digitalWrite(LED_GREEN, LOW);
     digitalWrite(LED_RED, HIGH);
   }
+   
 
+   void lightupmedicine(void) {
+    
+   }
   
   delay (20);
 }
