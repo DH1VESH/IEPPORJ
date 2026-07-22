@@ -12,7 +12,7 @@
 #define DIO 11
 TM1637 disp(CLK, DIO);
 int arrayLED[4] = {7,6,5,4 };
-int LEDselect(int y, int b, int g, int r){
+void LEDselect(int y, int b, int g, int r){
     digitalWrite(y, HIGH);
     digitalWrite(b, LOW);
     digitalWrite(g, LOW);
@@ -31,10 +31,9 @@ void setup() {
 }
 
 void loop() {
-  int knobValue = analogRead(KNOB);
+  int knobValue = analogRead(KNOB); 
   int knobLEDselect = map(knobValue, 0, 1023, 0, 100);  
   int displayselect = map(knobLEDselect, 0, 100, 0, 4);  
-
 
   Serial.print("KNOB: ");
   Serial.print (knobValue);
@@ -44,18 +43,12 @@ void loop() {
   disp.display(displayselect + 1);
 
   if (knobLEDselect<=25){
-    LEDselect(7, 6, 5, 4);
-  }
+    LEDselect(7, 6, 5, 4);}
   else if (knobLEDselect>25 ;knobLEDselect<=50){
-    LEDselect(6, 5, 4, 7);
-  }
+    LEDselect(6, 5, 4, 7);}
   else if (knobLEDselect>50 ; knobLEDselect<=75){
-    LEDselect(5, 4, 7, 6);
-  }
+    LEDselect(5, 4, 7, 6);}
   else if ( knobLEDselect>75;knobLEDselect<=100){
-    LEDselect(4, 7, 6, 5);
-  }
-   
-  
-  delay (20);
+    LEDselect(4, 7, 6, 5);}
+
 }
