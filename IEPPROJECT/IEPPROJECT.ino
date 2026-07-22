@@ -66,10 +66,6 @@ void loop() {
     digitalWrite(LED_RED, HIGH);
   }
    
-
-   void lightupmedicine(void) {
-    
-   }
   
   delay (20);
 }
