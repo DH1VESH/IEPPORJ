@@ -15,7 +15,7 @@ int yellowhours, bluehours, greenhours, redhours;
 TM1637 disp(CLK, DIO);
 int arrayLED[4] = {7,6,5,4 };
 
-int HoursLeft[4] = {yellowhours, bluehours, greenhours, redhours};
+int HoursLeft[4] ;
 
 int k,j;
 
@@ -65,10 +65,7 @@ int readbuttons(){
   return(k1 | k2 <<1);
 }
 
-int LEDHOURS(){
-  
 
-}
 
 
 
@@ -101,6 +98,8 @@ void loop() {
   int knobselect = map(knobValue, 0, 1023, 0, 100);
   int displayLEDselect = map(knobselect, 0, 100, 0, 4);
   int displayTIMEselect = map(knobselect, 0, 100, 1, 24);
+  int displayTIMEselect2 = HoursLeft[displayLEDselect];
+
  
    
   Serial.print("KNOB: ");
@@ -114,7 +113,7 @@ void loop() {
 if (buttons==2)
  {
  
-  disp.display(displayTIMEselect);
+  disp.display(displayTIMEselect2);
   int serial();
   Serial.print (displayLEDselect + 1);
    if (knobselect<=25){
@@ -137,20 +136,12 @@ else if (buttons==1)
  Serial.print(displayTIMEselect);
  k=0;
 Serial.print(k);
- switch(displayLEDselect){
-  case 1: displayTIMEselect = HoursLeft[k];
-        break;
-  case 2: displayTIMEselect = HoursLeft[k+1];
-        break;
-  case 3: displayTIMEselect = HoursLeft[k+2];
-        break;
-  case 4: displayTIMEselect = HoursLeft[k+3];
-        break;
-  default: displayTIMEselect = 0;
+ 
+ 
 
  }
 
-}
+
 
 
 else if (buttons==0)
@@ -171,13 +162,15 @@ else if (buttons==3)
  delay(1000);
  LEDselect(4, 7, 5, 6);
  delay(1000);
+ digitalWrite (4,LOW);
  HoursLeft[0] = 0;
  HoursLeft[1] = 0;
  HoursLeft[2] = 0;
  HoursLeft[3] = 0;
 }
-
-
-
 }
+
+
+
+
 
