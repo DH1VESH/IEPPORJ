@@ -22,7 +22,16 @@ void LEDselect(int y, int b, int g, int r){
 int checkbuttons();
 int readbuttons();
 int buttons = 0;
-
+int LEDlights(){
+  if (knobselect<=25){
+    LEDselect(7, 6, 5, 4);}
+  else if (knobselect>25 ;knobselect<=50){
+    LEDselect(6, 5, 4, 7);}
+  else if (knobselect>50 ; knobselect<=75){
+    LEDselect(5, 4, 7, 6);}
+  else if ( knobselect>75;knobselect<=100){
+    LEDselect(4, 7, 6, 5);}
+}
 
 
    
@@ -104,7 +113,11 @@ else if (buttons==1)
 
 else if (buttons==0)
 {
-  // CONFIRM AND ALARM
+  array[0] = knobselect;
+  array[1] = displayTIMEselect;
+  delay (array[0]*1000);
+  digital.Write(BUZZER,HIGH);
+
 }
 
 else if (buttons==3)
