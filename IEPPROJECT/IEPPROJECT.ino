@@ -12,7 +12,6 @@
 #define CLK 10
 #define DIO 11
 TM1637 disp(CLK, DIO);
-int yellow, blue, green, red;
 int arrayLED[4] = {7,6,5,4 };
 void LEDselect(int y, int b, int g, int r){
     digitalWrite(y, HIGH);
@@ -24,7 +23,7 @@ int readbuttons();
 int buttons = 0;
 int serial(){
    int knobValue = analogRead(KNOB);
-  int knobselect = map(knobValue, 0, 1023, 0, 100); 
+  int knobselect = map(knobValue, 0, 1023, 0, 100);
   Serial.print("KNOB: ");
   Serial.print (knobValue);
   Serial.print(" ");
@@ -32,9 +31,12 @@ int serial(){
   Serial.println(" ");
 }
 
+
    
 int checkbuttons(){
-  int prev, curr;
+  int prev,curr;
+
+
 
 
   curr = readbuttons();
@@ -47,12 +49,16 @@ int checkbuttons(){
 }
 
 
+
+
 int readbuttons(){
   int k1,k2;
   k1 = !digitalRead (K1PIN);
   k2 = !digitalRead (K2PIN);
   return(k1 | k2 <<1);
 }
+
+
 
 
 void setup() {
@@ -71,17 +77,17 @@ void setup() {
 
 
 
+
+
+
+
 void loop() {
-  
+ 
+
 
   int buttons = checkbuttons() ;
   int knobValue = analogRead(KNOB);
-  int knobLEDselect = map(knobValue, 0, 1023, 0, 100);  
-  int displayselect = map(knobLEDselect, 0, 100, 0, 4);  
-
-
-  if (button == 2){
-  int knobselect = map(knobValue, 0, 1023, 0, 100); 
+  int knobselect = map(knobValue, 0, 1023, 0, 100);
   int displayLEDselect = map(knobselect, 0, 100, 0, 4);
   int displayTIMEselect = map(knobselect, 0, 100, 1, 24);
   int arrayinputs[2] = {knobselect,displayTIMEselect};
@@ -91,20 +97,11 @@ void loop() {
   Serial.print(" ");
   Serial.print(knobselect);
   Serial.println(" ");
-  disp.display(displayselect + 1);
-  
-   if (knobLEDselect<=25){
-    LEDselect(7, 6, 5, 4);}
-   else if (knobLEDselect>25 ;knobLEDselect<=50){
-    LEDselect(6, 5, 4, 7);}
-   else if (knobLEDselect>50 ; knobLEDselect<=75){
-    LEDselect(5, 4, 7, 6);}
-   else if ( knobLEDselect>75;knobLEDselect<=100){
 
 
-  
+ 
 if (buttons==2)
- { 
+ {
   disp.display(displayLEDselect + 1);
   int serial();
   Serial.print (displayLEDselect);
@@ -116,7 +113,7 @@ if (buttons==2)
     LEDselect(5, 4, 7, 6);}
   else if ( knobselect>75;knobselect<=100){
     LEDselect(4, 7, 6, 5);}
-  
+ 
  }
 
 
@@ -125,22 +122,22 @@ else if (buttons==1)
  disp.display(displayTIMEselect);
  int serial();
  Serial.print(displayTIMEselect);
-<<<<<<< HEAD
-=======
- 
-
->>>>>>> 17c3abc26895d3803d63f58b74c588de971355b8
 }
+
 
 else if (buttons==0)
 {
  
 
+
 }
+
 
 else if (buttons==3)
 {
-  
+ 
 }
 
+
 }
+
