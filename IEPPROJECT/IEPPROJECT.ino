@@ -1,5 +1,6 @@
 #include <RichShieldTM1637.h>
 #include <TM1637Display.h>
+#include <Arduino.h>
 #define BUZZER     3
 #define LED_RED    4
 #define LED_GREEN  5
