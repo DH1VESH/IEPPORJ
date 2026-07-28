@@ -14,7 +14,9 @@
 int yellowhours, bluehours, greenhours, redhours;
 TM1637 disp(CLK, DIO);
 int arrayLED[4] = {7,6,5,4 };
+
 int HoursLeft[4] = {yellowhours, bluehours, greenhours, redhours};
+
 void LEDselect(int y, int b, int g, int r){
     digitalWrite(y, HIGH);
     digitalWrite(b, LOW);
@@ -138,7 +140,14 @@ else if (buttons==0)
 else if (buttons==3)
 {
  
+
 }
 
 
 }
+
+}
+
+
+}
+
