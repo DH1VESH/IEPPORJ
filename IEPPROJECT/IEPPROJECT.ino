@@ -15,7 +15,14 @@ int yellowhours, bluehours, greenhours, redhours;
 TM1637 disp(CLK, DIO);
 int arrayLED[4] = {7,6,5,4 };
 
-int HoursLeft[4] = {yellowhours, bluehours, greenhours, redhours};
+
+int HoursLeft[4] ;
+
+
+int k,j;
+
+
+
 
 void LEDselect(int y, int b, int g, int r){
     digitalWrite(y, HIGH);
@@ -36,9 +43,15 @@ int serial(){
 }
 
 
+
+
    
 int checkbuttons(){
   int prev,curr;
+
+
+
+
 
 
 
@@ -55,12 +68,22 @@ int checkbuttons(){
 
 
 
+
+
+
+
 int readbuttons(){
   int k1,k2;
   k1 = !digitalRead (K1PIN);
   k2 = !digitalRead (K2PIN);
   return(k1 | k2 <<1);
 }
+
+
+
+
+
+
 
 
 
@@ -85,8 +108,18 @@ void setup() {
 
 
 
+
+
+
+
+
+
+
+
 void loop() {
  
+
+
 
 
   int buttons = checkbuttons() ;
@@ -94,7 +127,10 @@ void loop() {
   int knobselect = map(knobValue, 0, 1023, 0, 100);
   int displayLEDselect = map(knobselect, 0, 100, 0, 4);
   int displayTIMEselect = map(knobselect, 0, 100, 1, 24);
-  int arrayinputs[2] = {knobselect,displayTIMEselect};
+  int displayTIMEselect2 = HoursLeft[displayLEDselect];
+
+
+ 
    
   Serial.print("KNOB: ");
   Serial.print (knobValue);
@@ -103,12 +139,15 @@ void loop() {
   Serial.println(" ");
 
 
+
+
  
 if (buttons==2)
  {
-  disp.display(displayLEDselect + 1);
+ 
+  disp.display(displayTIMEselect2);
   int serial();
-  Serial.print (displayLEDselect);
+  Serial.print (displayLEDselect + 1);
    if (knobselect<=25){
     LEDselect(7, 6, 5, 4);}
   else if (knobselect>25 ;knobselect<=50){
@@ -118,7 +157,10 @@ if (buttons==2)
   else if ( knobselect>75;knobselect<=100){
     LEDselect(4, 7, 6, 5);}
  
+ 
  }
+
+
 
 
 else if (buttons==1)
@@ -126,28 +168,59 @@ else if (buttons==1)
  disp.display(displayTIMEselect);
  int serial();
  Serial.print(displayTIMEselect);
-}
+ k=0;
+Serial.print(k);
+ 
+ 
+
+
+ }
+
+
+
+
+
+
 
 
 else if (buttons==0)
 {
- 
+
+
+
+
 
 
 }
+
+
 
 
 else if (buttons==3)
 {
- 
-
+ LEDselect(7, 6, 5, 4);
+ delay(1000);
+ LEDselect(6, 5, 4, 7);
+ delay(1000);
+ LEDselect(5, 6, 7, 4);
+ delay(1000);
+ LEDselect(4, 7, 5, 6);
+ delay(1000);
+ digitalWrite (4,LOW);
+ HoursLeft[0] = 0;
+ HoursLeft[1] = 0;
+ HoursLeft[2] = 0;
+ HoursLeft[3] = 0;
+}
 }
 
 
-}
-
-}
 
 
-}
+
+
+
+
+
+
 
