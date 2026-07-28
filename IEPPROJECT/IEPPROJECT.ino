@@ -13,7 +13,6 @@
 #define DIO 11
 TM1637 disp(CLK, DIO);
 int arrayLED[4] = {7,6,5,4 };
-int arrayinputs[2];
 void LEDselect(int y, int b, int g, int r){
     digitalWrite(y, HIGH);
     digitalWrite(b, LOW);
@@ -22,17 +21,15 @@ void LEDselect(int y, int b, int g, int r){
 int checkbuttons();
 int readbuttons();
 int buttons = 0;
-int LEDlights(){
-  if (knobselect<=25){
-    LEDselect(7, 6, 5, 4);}
-  else if (knobselect>25 ;knobselect<=50){
-    LEDselect(6, 5, 4, 7);}
-  else if (knobselect>50 ; knobselect<=75){
-    LEDselect(5, 4, 7, 6);}
-  else if ( knobselect>75;knobselect<=100){
-    LEDselect(4, 7, 6, 5);}
+int serial(){
+   int knobValue = analogRead(KNOB);
+  int knobselect = map(knobValue, 0, 1023, 0, 100); 
+  Serial.print("KNOB: ");
+  Serial.print (knobValue);
+  Serial.print(" ");
+  Serial.print(knobselect);
+  Serial.println(" ");
 }
-
 
    
 int checkbuttons(){
@@ -74,12 +71,14 @@ void setup() {
 
 
 void loop() {
- 
+  
+
   int buttons = checkbuttons() ;
   int knobValue = analogRead(KNOB);
   int knobselect = map(knobValue, 0, 1023, 0, 100); 
   int displayLEDselect = map(knobselect, 0, 100, 0, 4);
-
+  int displayTIMEselect = map(knobselect, 0, 100, 1, 24);
+  int arrayinputs[2] = {knobselect,displayTIMEselect};
    
   Serial.print("KNOB: ");
   Serial.print (knobValue);
@@ -91,8 +90,9 @@ void loop() {
 if (buttons==2)
  { 
   disp.display(displayLEDselect + 1);
+  int serial();
   Serial.print (displayLEDselect);
-  if (knobselect<=25){
+   if (knobselect<=25){
     LEDselect(7, 6, 5, 4);}
   else if (knobselect>25 ;knobselect<=50){
     LEDselect(6, 5, 4, 7);}
@@ -105,24 +105,20 @@ if (buttons==2)
 
 else if (buttons==1)
 {
- int displayTIMEselect = map(knobselect, 0, 100, 1, 24);
  disp.display(displayTIMEselect);
+ int serial();
  Serial.print(displayTIMEselect);
- 
 }
 
 else if (buttons==0)
 {
-  array[0] = knobselect;
-  array[1] = displayTIMEselect;
-  delay (array[0]*1000);
-  digital.Write(BUZZER,HIGH);
+ 
 
 }
 
 else if (buttons==3)
 {
-  // UNDO ALL
+  
 }
 
 }
