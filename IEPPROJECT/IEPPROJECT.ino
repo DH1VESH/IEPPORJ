@@ -13,6 +13,7 @@
 TM1637 disp(CLK, DIO);
 int yellow, blue, green, red;
 int arrayLED[4] = {7,6,5,4 };
+int arrayinputs[2];
 void LEDselect(int y, int b, int g, int r){
     digitalWrite(y, HIGH);
     digitalWrite(b, LOW);
@@ -20,8 +21,8 @@ void LEDselect(int y, int b, int g, int r){
     digitalWrite(r, LOW);}
 int checkbuttons();
 int readbuttons();
-int choosingmedicine();
 int buttons = 0;
+
 
 
    
@@ -65,17 +66,21 @@ void setup() {
 
 void loop() {
  
-  int button = checkbuttons();
+  int buttons = checkbuttons() ;
   int knobValue = analogRead(KNOB);
   int knobLEDselect = map(knobValue, 0, 1023, 0, 100);  
   int displayselect = map(knobLEDselect, 0, 100, 0, 4);  
 
 
   if (button == 2){
+  int knobselect = map(knobValue, 0, 1023, 0, 100); 
+  int displayLEDselect = map(knobselect, 0, 100, 0, 4);
+
+   
   Serial.print("KNOB: ");
   Serial.print (knobValue);
   Serial.print(" ");
-  Serial.print(knobLEDselect);
+  Serial.print(knobselect);
   Serial.println(" ");
   disp.display(displayselect + 1);
   
@@ -86,8 +91,42 @@ void loop() {
    else if (knobLEDselect>50 ; knobLEDselect<=75){
     LEDselect(5, 4, 7, 6);}
    else if ( knobLEDselect>75;knobLEDselect<=100){
-    LEDselect(4, 7, 6, 5);}
 
+
+  
+if (buttons==2)
+ { 
+  disp.display(displayLEDselect + 1);
+  Serial.print (displayLEDselect);
+  if (knobselect<=25){
+    LEDselect(7, 6, 5, 4);}
+  else if (knobselect>25 ;knobselect<=50){
+    LEDselect(6, 5, 4, 7);}
+  else if (knobselect>50 ; knobselect<=75){
+    LEDselect(5, 4, 7, 6);}
+  else if ( knobselect>75;knobselect<=100){
+    LEDselect(4, 7, 6, 5);}
+  
+ }
+
+
+else if (buttons==1)
+{
+ int displayTIMEselect = map(knobselect, 0, 100, 1, 24);
+ disp.display(displayTIMEselect);
+ Serial.print(displayTIMEselect);
+ 
 
 }
 
+else if (buttons==0)
+{
+  // CONFIRM AND ALARM
+}
+
+else if (buttons==3)
+{
+  // UNDO ALL
+}
+
+}
