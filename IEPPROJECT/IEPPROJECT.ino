@@ -17,6 +17,9 @@ int arrayLED[4] = {7,6,5,4 };
 
 int HoursLeft[4] = {yellowhours, bluehours, greenhours, redhours};
 
+int k,j;
+
+
 void LEDselect(int y, int b, int g, int r){
     digitalWrite(y, HIGH);
     digitalWrite(b, LOW);
@@ -62,6 +65,10 @@ int readbuttons(){
   return(k1 | k2 <<1);
 }
 
+int LEDHOURS(){
+  
+
+}
 
 
 
@@ -94,7 +101,7 @@ void loop() {
   int knobselect = map(knobValue, 0, 1023, 0, 100);
   int displayLEDselect = map(knobselect, 0, 100, 0, 4);
   int displayTIMEselect = map(knobselect, 0, 100, 1, 24);
-  int arrayinputs[2] = {knobselect,displayTIMEselect};
+ 
    
   Serial.print("KNOB: ");
   Serial.print (knobValue);
@@ -106,9 +113,10 @@ void loop() {
  
 if (buttons==2)
  {
-  disp.display(displayLEDselect + 1);
+ 
+  disp.display(displayTIMEselect);
   int serial();
-  Serial.print (displayLEDselect);
+  Serial.print (displayLEDselect + 1);
    if (knobselect<=25){
     LEDselect(7, 6, 5, 4);}
   else if (knobselect>25 ;knobselect<=50){
@@ -117,6 +125,7 @@ if (buttons==2)
     LEDselect(5, 4, 7, 6);}
   else if ( knobselect>75;knobselect<=100){
     LEDselect(4, 7, 6, 5);}
+  
  
  }
 
@@ -126,12 +135,27 @@ else if (buttons==1)
  disp.display(displayTIMEselect);
  int serial();
  Serial.print(displayTIMEselect);
+ k=0;
+Serial.print(k);
+ switch(displayLEDselect){
+  case 1: displayTIMEselect = HoursLeft[k];
+        break;
+  case 2: displayTIMEselect = HoursLeft[k+1];
+        break;
+  case 3: displayTIMEselect = HoursLeft[k+2];
+        break;
+  case 4: displayTIMEselect = HoursLeft[k+3];
+        break;
+  default: displayTIMEselect = 0;
+
+ }
+
 }
 
 
 else if (buttons==0)
 {
- 
+
 
 
 }
@@ -139,14 +163,20 @@ else if (buttons==0)
 
 else if (buttons==3)
 {
- 
-
+ LEDselect(7, 6, 5, 4);
+ delay(1000);
+ LEDselect(6, 5, 4, 7);
+ delay(1000);
+ LEDselect(5, 6, 7, 4);
+ delay(1000);
+ LEDselect(4, 7, 5, 6);
+ delay(1000);
+ HoursLeft[0] = 0;
+ HoursLeft[1] = 0;
+ HoursLeft[2] = 0;
+ HoursLeft[3] = 0;
 }
 
-
-}
-
-}
 
 
 }
