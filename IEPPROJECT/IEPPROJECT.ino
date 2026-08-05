@@ -16,7 +16,7 @@ TM1637 disp(CLK, DIO);
 int arrayLED[4] = {7,6,5,4 };
 
 
-int HoursLeft[4] ;
+int Hours[4] ;
 
 
 int k,j;
@@ -29,33 +29,10 @@ void LEDselect(int y, int b, int g, int r){
     digitalWrite(b, LOW);
     digitalWrite(g, LOW);
     digitalWrite(r, LOW);}
-int checkbuttons();
-int readbuttons();
 int buttons = 0;
-int serial(){
-   int knobValue = analogRead(KNOB);
-  int knobselect = map(knobValue, 0, 1023, 0, 100);
-  Serial.print("KNOB: ");
-  Serial.print (knobValue);
-  Serial.print(" ");
-  Serial.print(knobselect);
-  Serial.println(" ");
-}
 
-
-
-
-   
 int checkbuttons(){
   int prev,curr;
-
-
-
-
-
-
-
-
   curr = readbuttons();
   do {
     delay(20);
@@ -65,28 +42,12 @@ int checkbuttons(){
   return curr;
 }
 
-
-
-
-
-
-
-
 int readbuttons(){
   int k1,k2;
   k1 = !digitalRead (K1PIN);
   k2 = !digitalRead (K2PIN);
   return(k1 | k2 <<1);
 }
-
-
-
-
-
-
-
-
-
 
 void setup() {
   Serial.begin(9600);
@@ -101,52 +62,18 @@ void setup() {
   disp.init();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void loop() {
  
-
-
-
-
   int buttons = checkbuttons() ;
   int knobValue = analogRead(KNOB);
   int knobselect = map(knobValue, 0, 1023, 0, 100);
   int displayLEDselect = map(knobselect, 0, 100, 0, 4);
   int displayTIMEselect = map(knobselect, 0, 100, 1, 24);
-  int displayTIMEselect2 = HoursLeft[displayLEDselect];
+  int displayTIMEselect2 = Hours[displayLEDselect];
 
-
- 
-   
-  Serial.print("KNOB: ");
-  Serial.print (knobValue);
-  Serial.print(" ");
-  Serial.print(knobselect);
-  Serial.println(" ");
-
-
-
-
- 
 if (buttons==2)
  {
- 
   disp.display(displayTIMEselect2);
-  int serial();
   Serial.print (displayLEDselect + 1);
    if (knobselect<=25){
     LEDselect(7, 6, 5, 4);}
@@ -156,32 +83,14 @@ if (buttons==2)
     LEDselect(5, 4, 7, 6);}
   else if ( knobselect>75;knobselect<=100){
     LEDselect(4, 7, 6, 5);}
- 
- 
  }
-
-
-
 
 else if (buttons==1)
 {
  disp.display(displayTIMEselect);
  int serial();
  Serial.print(displayTIMEselect);
- k=0;
-Serial.print(k);
- 
- 
-
-
  }
-
-
-
-
-
-
-
 
 else if (buttons==0)
 {
@@ -193,24 +102,16 @@ else if (buttons==0)
 
 }
 
-
-
-
 else if (buttons==3)
 {
- LEDselect(7, 6, 5, 4);
- delay(1000);
- LEDselect(6, 5, 4, 7);
- delay(1000);
- LEDselect(5, 6, 7, 4);
- delay(1000);
- LEDselect(4, 7, 5, 6);
- delay(1000);
- digitalWrite (4,LOW);
- HoursLeft[0] = 0;
- HoursLeft[1] = 0;
- HoursLeft[2] = 0;
- HoursLeft[3] = 0;
+ int g;
+ for (g=0;g<4;g++)
+ {
+  digitalWrite(7-g, HIGH);
+  delay(1000);
+  digitalWrite(7-g, LOW);
+  Hours[g] = 0;
+ }
 }
 }
 
